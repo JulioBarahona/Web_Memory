@@ -1,42 +1,16 @@
-/*
-  Julio Barahona M
-  141206
-  Sistemas y tecnologias web
-  Seccion 10
-  Lab6: Memoria
-*/
-
-//modules are called and libraries called
-import React from 'react'
-import ReactDom from 'react-dom'
-import './memory.css'
-
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './style.css'
 //selects the files from the src folder
-import sakura from './sakura.png'
+import sakura from './sakura.png' 
 import tomoyo from './tomoyo.png'
 import li from './li.png'
 import touya from './touya.png'
 import yukito from './yukito.png'
 import kero from './kero.png'
 
-class Memoria extends React.Component{
-	constructor(props){
-		super(props); 
-		this.state = {
-			//sets states of card selection, cards turned and if they are equal
-			selected: false, 
-			card_selected: null, 
-			deck: [],
-			stance: Array(12).fill('card'),
-			spaces: 6, 
-			images: Array(12).fill(null), 
-			pairs: 0, 
-			turns: 0, 
-			rep: Array(6).fill(1)
-		}
 
-		this.create_memory(); 
-	}
+class Memoria extends React.Component{
 
 	create_memory(){
 		const cards = [sakura, tomoyo, li, touya, yukito, sakura]; 
@@ -56,18 +30,18 @@ class Memoria extends React.Component{
 			//cehckign for shuffling cards so i can  say im not doing poopy work
 			console.log('reamaining cards: '+ remaining)
 			function shuffle(arra1) {
-				var ctr = arra1.length, temp, index;
+				var counter = arra1.length, temp, position;
 
 				// While there are elements in the array
-				while (ctr > 0) {
-				// Pick a random index
-				index = Math.floor(Math.random() * ctr);
-				// Decrease ctr by 1
-				ctr--;
+				while (counter > 0) {
+				// Pick a random position
+				position = Math.floor(Math.random() * counter);
+				// Decrease counter by 1
+				counter--;
 				// And swap the last element with it
-				temp = arra1[ctr];
-				arra1[ctr] = arra1[index];
-				arra1[index] = temp;
+				temp = arra1[counter];
+				arra1[counter] = arra1[position];
+				arra1[position] = temp;
 				}
 				return arra1;
 			}
@@ -85,6 +59,32 @@ class Memoria extends React.Component{
 				console.log(shuffle(remaining));
 
 		}
+	}
+
+		constructor(props){
+		super(props); 
+		this.state = {
+			//sets states of card selection, cards turned and if they are equal
+			selected: false, 
+			//no card selected
+			card_selected: null,
+			//cards that will be in the gme 
+			deck: [],
+			//what will be filled in the board
+			stance: Array(12).fill('card'),
+			//how many different pairs there will be
+			spaces: 6, 
+			//what the card will look like
+			images: Array(12).fill(null), 
+			//how many correct pairs have been matched
+			pairs: 0, 
+			//how many valid clicks have happend
+			turns: 0, 
+			//the number of cards that will be represented
+			rep: Array(6).fill(1)
+		}
+
+		this.create_memory(); 
 	}
 
 	handleClick(e){
@@ -132,44 +132,40 @@ class Memoria extends React.Component{
 			})
 		}
 	}
+
+	//after all the fuzz this bad boys renders out
 	render(){
-		const images = [sakura, tomoyo, li, tomoyo, yukito, kero]; 
+		// gets the entities 
+		const images = [sakura, tomoyo, li, tomoyo, yukito, kero];
+		//
 		const id = 0;
 		return(
 			<div className = "table">
-				<div className = "leather">
+				<div className = "screenSize">
 					{
-					this.state.deck.map((cont, index)=>{
+					this.state.deck.map((cont, position)=>{
 						return ( 
-							<div className="container" key={index}>
-								<div className = {this.state.stance[index]}>
+							<div className="placeHolder" key={position}>
+								<div className = {this.state.stance[position]}>
 									<div
-										key={index}
-										className="face"
-										onClick = {this.handleClick.bind(this, index)}>
+										key={position}
+										className="cardBCK"
+										onClick = {this.handleClick.bind(this, position)}>
 									</div>
 									<div
-										key={index + 12}
-										className="back"
-										style = {{backgroundImage: 'url(' +this.state.images[index]+ ')'}}
+										key={position + 12}
+										className="cardPRTRT"
+										style = {{backgroundImage: 'url(' +this.state.images[position]+ ')'}}
 										>
 									</div>
 								</div>
 							</div>
-
 						)
-
 					})
 				}
 			</div>
 		</div>
+			)}}
 
-			)
-	}
-}
-
-
-ReactDom.render(
-	<Memoria />,
-	document.getElementById('root')
-)
+ReactDOM.render(<Memoria />, document.getElementById('app'));
+module.hot.accept();

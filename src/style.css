@@ -1,0 +1,75 @@
+/*
+Julio Barahona M
+141206
+Sistemas y tecnologias web
+Seccion 10
+Lab6: Memoria
+*/
+
+/*basically wallpaper*/
+html, body {
+background: url("https://wallpapermemory.com/uploads/379/leather-background-full-hd-1080p-186521.jpg");
+margin: 0;
+padding: 0;
+height: 0;
+height: 450px
+}
+
+/*size of the screen*/
+.screenSize {
+height: 500px;
+position: relative;
+left: 33%;
+display: grid;
+grid-template-rows: 285px 285px 285px 285px 285px 285px;
+grid-template-columns: 200px 200px 200px 200px 200px 200px;
+grid-gap: 10px;
+grid-row-gap: 10px;
+width: 590px;
+margin: 20px 20px 20px -400px;
+}
+
+/*container*/
+.placeHolder {
+width: 200px;
+height: 275px;
+perspective: 600px;
+position: relative;
+
+}
+
+/*will contain the next two properties when the trigger is done*/
+.card {
+position: absolute;
+width: 100%;
+height: 100%;
+transition: all 3s;
+transform-style: preserve-3d;
+
+}
+
+/*card portrait*/
+.cardPRTRT {
+position: absolute;
+width: 100%;
+height: 100%;
+font-size: 10;
+backface-visibility: hidden;
+transform: rotateX(-180deg);
+}
+
+/*card back*/
+.cardBCK {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+background-image: url("./back.png");
+}
+
+/*transition if it aint a match*/
+.flipped {
+transform: rotateX(540deg);
+}
+
+
